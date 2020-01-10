@@ -1,0 +1,19 @@
+{
+  "name": "similarweb",
+  "version": "1.0.0",
+  "description": "YouTube player",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nadav-emg/SimilarWeb.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nadav-emg/SimilarWeb/issues"
+  },
+  "homepage": "https://github.com/nadav-emg/SimilarWeb#readme"
+}

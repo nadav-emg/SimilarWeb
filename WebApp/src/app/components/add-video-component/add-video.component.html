@@ -1,0 +1,8 @@
+<div>
+  <form [formGroup]="videoAddForm" (submit)="onSubmit()">
+    <label>
+      <input type="text" formControlName="videoID">
+    </label>
+    <button type="submit" [disabled]="!videoAddForm.valid">Add</button>
+  </form>
+</div>

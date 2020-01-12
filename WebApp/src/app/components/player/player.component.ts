@@ -22,17 +22,23 @@ export class PlayerComponent implements OnInit {
       this.currentVideo = video;
       this.player.loadVideoById(video.id);
       this.player.playVideo();
+      this.player.on('stateChange', (event) => {
+        // event.data
+        if (event.data === 0) {
+          this.playListService.remove(this.currentVideo);
+        }
+      });
     }
   }
   ngOnInit() {
     this.player = YouTubePlayer('player');
+    this.currentPlay = this.playListService.currentPlay;
     this.player.on('stateChange', (event) => {
       // event.data
       if (event.data === 0) {
         this.playListService.remove(this.currentVideo);
       }
     });
-    this.currentPlay = this.playListService.currentPlay;
     this.currentPlay.subscribe(this.playVideo.bind(this));
   }
 

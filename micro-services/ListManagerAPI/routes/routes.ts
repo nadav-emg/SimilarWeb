@@ -21,7 +21,7 @@ export class Routes {
             .get(this.controller.getAllVideos);
 
         this.router.route('/list/video/:id')
-            .delete(this.controller.getAllVideos);
+            .delete(this.controller.deleteVideo);
 
 
     }

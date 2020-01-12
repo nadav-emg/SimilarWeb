@@ -50,7 +50,7 @@ export class App {
     }
 
     private listen() {
-        const port =  4200; //TODO add config
+        const port =  8090; //TODO add config
         this.server.listen(port, () => {
             console.log(`MS running on port: ${port}`);
         });

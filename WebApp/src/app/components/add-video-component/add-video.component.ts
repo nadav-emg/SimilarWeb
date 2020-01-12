@@ -4,7 +4,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 
 @Component({
-  selector: 'add-video',
+  selector: 'app-add-video',
   templateUrl: './add-video.component.html',
   styleUrls: [ './add-video.component.css' ]
 })
@@ -15,7 +15,7 @@ export class AddVideoComponent {
   });
 
   constructor(private playListService: PlayListService,
-              private formBuilder: FormBuilder){
+              private formBuilder: FormBuilder) {
     this.videoAddForm = this.formBuilder.group({
       'videoID': ['', Validators.required]
     });

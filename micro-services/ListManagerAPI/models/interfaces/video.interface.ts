@@ -1,3 +1,5 @@
 export interface IVideo {
-    url: string
+    id: string,
+    title: string,
+    duration: string
 }

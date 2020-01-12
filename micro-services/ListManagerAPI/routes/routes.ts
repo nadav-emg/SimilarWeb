@@ -20,6 +20,9 @@ export class Routes {
         this.router.route('/list')
             .get(this.controller.getAllVideos);
 
+        this.router.route('/list/video/:id')
+            .delete(this.controller.getAllVideos);
+
 
     }
 }

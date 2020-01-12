@@ -27,17 +27,17 @@ export class App {
     private initExpress(): void {
 
         this.express = express();
-        //this.express.get("/user/:username",
+
     }
     private middleware(): void {
         this.express.use(express.json())
-        // this.express.use((req, res, next) => {
-        //    res.header('Access-Control-Allow-Origin', '*');
-        //    res.header('Access-Control-Allow-Methods', '*');
-        //    res.header('Access-Control-Allow-Headers', '*');
+         this.express.use((req, res, next) => {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Methods', '*');
+            res.header('Access-Control-Allow-Headers', '*');
 
-            //next();
-       // });
+            next();
+        });
     }
     private initRoutes(): void {
 

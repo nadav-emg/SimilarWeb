@@ -14,11 +14,9 @@ export class Controller {
     }
     AddVideoToList = async(req: Request, res: Response) => {
         try {
-            const videoReq: IVideo = {
-                url: req.body.url
-            }
-            this.service.add2List(videoReq);
-            res.status(200).send();
+            const id= req.body.id;
+            const video = await this.service.add2List(id);
+            res.status(200).send(video);
         } catch (e) {
             console.log(e.message);
             res.status(500).send("failed");
@@ -32,8 +30,17 @@ export class Controller {
                 console.log(e.message);
                 res.status(500).send("failed");
             }
-
     }
 
+    deleteVideo = async(req: Request, res: Response) => {
+        try {
+            const id= req.params.id;
+            const video = await this.service.deleteFromList(id);
+            res.status(200).send(video);
+        } catch (e) {
+            console.log(e.message);
+            res.status(500).send("failed");
+        }
+    }
 
 }

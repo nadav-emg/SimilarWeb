@@ -1,0 +1,8 @@
+.container {
+    display: flex;
+    flex: 1;
+}
+
+.left-side {
+    max-width: 30%;
+}

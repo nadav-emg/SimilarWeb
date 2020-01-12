@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<ul>
+   <li class="list-item" *ngFor="let listItem of playList | async">
+      <span>{{ listItem.id }}</span>
+      <span>{{ listItem.title }}</span>
+      <span>{{ listItem.duration }}</span>
+   </li>
+</ul>

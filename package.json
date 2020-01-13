@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build.start.server": "cd micro-services/ListManagerAPI && npm run prod ",
-    "build.start.client": "cd WebApp && npm run ng serve",
+    "build.start.client": "cd WebApp && npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

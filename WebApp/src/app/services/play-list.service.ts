@@ -1,7 +1,8 @@
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Subscription} from 'rxjs';
 import {IVideo} from '../modules/video.interface';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {WebSocketService} from "./websocket.service";
 
 @Injectable()
 export class PlayListService {
@@ -11,27 +12,29 @@ export class PlayListService {
   readonly playList = this._playList.asObservable();
 
   public currentPlay = new BehaviorSubject<IVideo | null >(null);
-  constructor(private http: HttpClient) {
+  private listener: Subscription;
+  constructor(private http: HttpClient, private wsService: WebSocketService) {
     this.init();
   }
 
   init() {
     this.loadAll();
+    this.listener = this.wsService.onMessage().subscribe(data => {
+        this.addVideoToListLocaly(data);
+    });
   }
 
   addVideo(videoID: string) {
+    this.http.post(`${this.baseUrl}/video`, {id: videoID});
+  }
 
-    this.http.post<IVideo>(`${this.baseUrl}/video`, {id: videoID}).subscribe(data => {
-      if (!data) {
-        return;
-      }
-      this.dataStore.playList.push(data);
+  addVideoToListLocaly(vid: IVideo) {
+      this.dataStore.playList.push(vid);
       this._playList.next(Object.assign({}, this.dataStore).playList);
       if (this.dataStore.playList.length === 1) {
         this.currentPlay.next(Object.assign({}, this.dataStore).playList[0]);
       }
-    }, error => console.log('Could not add video.'));
-  }
+    }
 
   remove(video: IVideo) {
     this.http.delete(`${this.baseUrl}/video/${video.id}`).subscribe(response => {

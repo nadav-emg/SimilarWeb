@@ -2,25 +2,26 @@ import 'reflect-metadata';
 import { ContainerConfig } from './inversify.config';
 import * as http from 'http';
 import {Routes} from "./routes/routes";
-
+import {SocketService} from "./services/socket.service";
 var express = require('express');
 
 export class App {
     public express;
     private server: http.Server ;
+    private io;
     //private config: IConnectionConfig;
     public static bootstrap(): App {
         const container = ContainerConfig.getContainer();
-        return new App( container.get( Routes ));
+        return new App( container.get( Routes ), container.get( SocketService ));
     }
 
-    constructor(private routes: Routes) {
+    constructor(private routes: Routes, private socketService: SocketService) {
 
         this.initExpress();
-        this.middleware()
+        this.middleware();
         this.initRoutes();
-
         this.initServer();
+        this.initSockets();
         this.listen();
     }
 
@@ -39,6 +40,10 @@ export class App {
             next();
         });
     }
+
+    private initSockets(): void {
+        this.socketService.createSocket(this.server);
+    }
     private initRoutes(): void {
 
         this.express.use('/', this.routes.router);
@@ -46,7 +51,7 @@ export class App {
     }
 
     private initServer() {
-        return this.server = http.createServer(this.express);
+        this.server = http.createServer(this.express);
     }
 
     private listen() {

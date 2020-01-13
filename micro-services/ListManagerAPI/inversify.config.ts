@@ -4,6 +4,7 @@ import {Controller } from "./controllers/controller"
 import {Service} from "./services/service";
 import {Routes} from "./routes/routes";
 import {YouTubeService} from "./services/youTube.service";
+import {SocketService} from "./services/socket.service";
 
 
 export class ContainerConfig {
@@ -18,6 +19,7 @@ export class ContainerConfig {
         //Services
         ContainerConfig.container.bind<Service>(Service).toSelf();
         ContainerConfig.container.bind<YouTubeService>(YouTubeService).toSelf();
+        ContainerConfig.container.bind<SocketService>(SocketService).toSelf();
         //Routes
         ContainerConfig.container.bind<Routes>(Routes).toSelf();
 

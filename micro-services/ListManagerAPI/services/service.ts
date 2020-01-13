@@ -1,12 +1,13 @@
 import {injectable} from 'inversify';
 import {IVideo} from '../models/interfaces/video.interface'
 import {YouTubeService} from "./youTube.service";
+import {SocketService} from "./socket.service";
 
 @injectable()
 export class Service {
     private videoList: IVideo[] = [];
 
-    constructor(private youTubeService: YouTubeService) {
+    constructor(private youTubeService: YouTubeService, private socketService: SocketService) {
 
     }
 
@@ -15,6 +16,7 @@ export class Service {
         try {
             const videoData = await this.youTubeService.getVideoById(video)
             this.videoList.push(videoData);
+            this.socketService.emit(videoData);
             return videoData;
         }catch (e) {
             console.log(e.message);
@@ -26,7 +28,7 @@ export class Service {
         try {
 
             if (this.videoList.length>0 && this.videoList[0].id===id){
-                return this.videoList.pop();
+                return this.videoList.shift();
             }
         }catch (e) {
             console.log(e.message);

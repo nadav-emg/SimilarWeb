@@ -27,7 +27,7 @@ export class PlayListService {
       }
       this.dataStore.playList.push(data);
       this._playList.next(Object.assign({}, this.dataStore).playList);
-      if (this.dataStore.playList.length === 1){
+      if (this.dataStore.playList.length === 1) {
         this.currentPlay.next(Object.assign({}, this.dataStore).playList[0]);
       }
     }, error => console.log('Could not add video.'));
@@ -39,7 +39,7 @@ export class PlayListService {
         return;
       }
       if (this.dataStore.playList[0].id === video.id) {
-        this.dataStore.playList.pop();
+        this.dataStore.playList.shift();
       }
       this.currentPlay.next(Object.assign({}, this.dataStore).playList[0]);
       this._playList.next(Object.assign({}, this.dataStore).playList);
@@ -52,13 +52,5 @@ export class PlayListService {
       this._playList.next(Object.assign({}, this.dataStore).playList);
       this.currentPlay.next(Object.assign({}, this.dataStore).playList[0]);
     }, error => console.log('Could not load todos.'));
-  }
-
-  getNextVideo() {
-    if (this.dataStore.playList.length === 0) {
-      return;
-    }
-    return this.dataStore.playList[0];
-
   }
 }

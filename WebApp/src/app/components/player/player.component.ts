@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import YouTubePlayer from 'youtube-player';
 import YT from 'youtube-player';
-import {PlayListService} from "../../services/play-list.service";
-import {Observable} from "rxjs";
-import {IVideo} from "../../modules/video.interface";
+import {PlayListService} from '../../services/play-list.service';
+import {Observable} from 'rxjs';
+import {IVideo} from '../../modules/video.interface';
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html',
@@ -22,24 +22,19 @@ export class PlayerComponent implements OnInit {
       this.currentVideo = video;
       this.player.loadVideoById(video.id);
       this.player.playVideo();
-      this.player.on('stateChange', (event) => {
-        // event.data
-        if (event.data === 0) {
-          this.playListService.remove(this.currentVideo);
-        }
-      });
+
     }
   }
   ngOnInit() {
     this.player = YouTubePlayer('player');
     this.currentPlay = this.playListService.currentPlay;
+    this.currentPlay.subscribe(this.playVideo.bind(this));
     this.player.on('stateChange', (event) => {
       // event.data
       if (event.data === 0) {
         this.playListService.remove(this.currentVideo);
       }
     });
-    this.currentPlay.subscribe(this.playVideo.bind(this));
   }
 
 }

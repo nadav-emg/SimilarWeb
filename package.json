@@ -4,6 +4,8 @@
   "description": "YouTube player",
   "main": "index.js",
   "scripts": {
+    "build.start.server": "cd micro-services/ListManagerAPI && npm run prod ",
+    "build.start.client": "cd WebApp && npm run ng serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/nadav-emg/SimilarWeb/issues"
   },
-  "homepage": "https://github.com/nadav-emg/SimilarWeb#readme"
+  "homepage": "https://github.com/nadav-emg/SimilarWeb#readme",
+  "devDependencies": {
+    "@angular/cli": "^8.3.22"
+  }
 }

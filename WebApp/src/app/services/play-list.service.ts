@@ -2,7 +2,7 @@ import {BehaviorSubject, Subscription} from 'rxjs';
 import {IVideo} from '../modules/video.interface';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {WebSocketService} from "./websocket.service";
+import {WebSocketService} from './websocket.service';
 
 @Injectable()
 export class PlayListService {
@@ -24,8 +24,8 @@ export class PlayListService {
     });
   }
 
-  addVideo(videoID: string) {
-    this.http.post(`${this.baseUrl}/video`, {id: videoID});
+  async addVideo(videoID: string) {
+    this.http.post(`${this.baseUrl}/video`, {id: videoID}).toPromise().then( _ =>{}).catch(e => { console.log('not able to find video- ', e); } );
   }
 
   addVideoToListLocaly(vid: IVideo) {

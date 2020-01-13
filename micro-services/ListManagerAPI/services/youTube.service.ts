@@ -1,5 +1,6 @@
 import {injectable} from "inversify";
 import {IVideo} from "../models/interfaces/video.interface";
+import * as moment from "moment";
 const util = require('util');
 const YouTube = require('youtube-node');
 
@@ -27,7 +28,7 @@ export class YouTubeService {
         const vid:IVideo = {
             id: id,
             title: videoDetails.items[0].snippet.title,
-            duration: videoDetails.items[0].contentDetails.duration
+            duration:  moment.utc(moment.duration(videoDetails.items[0].contentDetails.duration).asMilliseconds()).format('HH:mm:ss')
         }
         return vid;
     }
